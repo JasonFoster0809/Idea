@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow" data-aos="fade-up">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Contribute a Question</h2>
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject</label>
+                            <select class="form-select" id="subject" name="subject" required>
+                                <option value="">Select a subject</option>
+                                <option value="Math">Math</option>
+                                <option value="Literature">Literature</option>
+                                <option value="Chemistry">Chemistry</option>
+                                <option value="Physics">Physics</option>
+                                <option value="Biology">Biology</option>
+                                <option value="History">History</option>
+                                <option value="Geography">Geography</option>
+                                <option value="Economic Education">Economic Education</option>
+                                <option value="Law">Law</option>
+                                <option value="Information Technology">Information Technology</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="grade" class="form-label">Grade</label>
+                            <select class="form-select" id="grade" name="grade" required>
+                                <option value="10">Grade 10</option>
+                                <option value="11">Grade 11</option>
+                                <option value="12">Grade 12</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="question" class="form-label">Question</label>
+                            <textarea class="form-control" id="question" name="question" rows="3" required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Options</label>
+                            <input type="text" class="form-control mb-2" name="option_a" placeholder="Option A" required>
+                            <input type="text" class="form-control mb-2" name="option_b" placeholder="Option B" required>
+                            <input type="text" class="form-control mb-2" name="option_c" placeholder="Option C" required>
+                            <input type="text" class="form-control mb-2" name="option_d" placeholder="Option D" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="correct_answer" class="form-label">Correct Answer</label>
+                            <select class="form-select" id="correct_answer" name="correct_answer" required>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="explanation" class="form-label">Explanation</label>
+                            <textarea class="form-control" id="explanation" name="explanation" rows="3" required></textarea>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Submit Question</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

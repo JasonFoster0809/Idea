@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center mb-4" data-aos="fade-down">Shop</h2>
+
+    <div class="row">
+        <!-- Help Rights Section -->
+        <div class="col-md-4" data-aos="fade-up">
+            <div class="card shadow h-100">
+                <div class="card-header">
+                    <h3 class="card-title">Help Rights</h3>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action" onclick="purchaseItem('50/50', 50)">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6>50/50</h6>
+                                    <small>Remove 2 wrong answers</small>
+                                </div>
+                                <span class="badge bg-primary">🪙 50</span>
+                            </div>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action" onclick="purchaseItem('Skip Question', 100)">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6>Skip Question</h6>
+                                    <small>Skip 1 answer but keep coins</small>
+                                </div>
+                                <span class="badge bg-primary">🪙 100</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gacha Section -->
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="card shadow h-100">
+                <div class="card-header">
+                    <h3 class="card-title">Gacha</h3>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <button class="btn btn-primary btn-lg" onclick="purchaseItem('Gacha', 100)">
+                            Try Your Luck! (🪙 100)
+                        </button>
+                    </div>
+                    <div class="small">
+                        <p>Possible Rewards:</p>
+                        <ul>
+                            <li>Have a nice day</li>
+                            <li>50/50 help</li>
+                            <li>Skip 1 answer</li>
+                            <li>20% coin boost</li>
+                            <li>Free entrance ticket</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rewards Section -->
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="card shadow h-100">
+                <div class="card-header">
+                    <h3 class="card-title">Redeem Rewards</h3>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action" onclick="purchaseItem('10k VND Card', 10000)">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6>10,000 VND Scratch Card</h6>
+                                </div>
+                                <span class="badge bg-primary">🪙 10,000</span>
+                            </div>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action" onclick="purchaseItem('50k VND Card', 50000)">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6>50,000 VND Scratch Card</h6>
+                                </div>
+                                <span class="badge bg-primary">🪙 50,000</span>
+                            </div>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action" onclick="purchaseItem('100k VND Card', 100000)">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6>100,000 VND Scratch Card</h6>
+                                </div>
+                                <span class="badge bg-primary">🪙 100,000</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

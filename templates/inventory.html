@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center mb-4" data-aos="fade-down">Ba lô của tôi</h2>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow" data-aos="fade-up">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Vật phẩm</th>
+                                    <th>Số lượng</th>
+                                    <th>Ngày nhận</th>
+                                    <th>Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in inventory_items %}
+                                <tr>
+                                    <td>{{ item.item_name }}</td>
+                                    <td>{{ item.quantity }}</td>
+                                    <td>{{ item.acquired_date.strftime('%Y-%m-%d %H:%M') }}</td>
+                                    <td>
+                                        {% if item.is_used %}
+                                        <span class="badge bg-secondary">Đã sử dụng</span>
+                                        {% else %}
+                                        <span class="badge bg-success">Khả dụng</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

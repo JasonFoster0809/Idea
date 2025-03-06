@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center mb-4" data-aos="fade-down">Bảng điều khiển Admin</h2>
+
+    <div class="row g-4">
+        <!-- Quick Links -->
+        <div class="col-md-12">
+            <div class="nav-buttons mb-4">
+                <a href="{{ url_for('admin_users') }}" class="btn btn-primary me-2">
+                    <i data-feather="users"></i> Quản lý người dùng
+                </a>
+                <a href="{{ url_for('admin_contributions') }}" class="btn btn-success me-2">
+                    <i data-feather="file-text"></i> Quản lý đóng góp
+                </a>
+                <a href="{{ url_for('admin_fortune_cookies') }}" class="btn btn-info me-2">
+                    <i data-feather="gift"></i> Quản lý Fortune Cookies
+                </a>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="col-md-3">
+            <div class="card shadow" data-aos="fade-up">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Tổng số người dùng</h5>
+                    <h3 class="text-primary">{{ total_users }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow" data-aos="fade-up">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Đóng góp chờ duyệt</h5>
+                    <h3 class="text-warning">{{ pending_contributions }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow" data-aos="fade-up">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Tổng số câu hỏi</h5>
+                    <h3 class="text-success">{{ total_questions }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow" data-aos="fade-up">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Người dùng mới (30 ngày)</h5>
+                    <h3 class="text-info">{{ new_users }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card shadow" data-aos="fade-up">
+                <div class="card-body">
+                    <h3 class="card-title">Top 20 người đóng góp</h3>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Xếp hạng</th>
+                                    <th>Người dùng</th>
+                                    <th>Số đóng góp</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user, contributions in top_contributors %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{ user.username }}</td>
+                                    <td>{{ contributions }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

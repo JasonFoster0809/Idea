@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center mb-4" data-aos="fade-down">Quản lý đóng góp câu hỏi</h2>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow" data-aos="fade-up">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Người đóng góp</th>
+                                    <th>Môn học</th>
+                                    <th>Lớp</th>
+                                    <th>Câu hỏi</th>
+                                    <th>Đáp án</th>
+                                    <th>Thời gian</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for contribution in contributions %}
+                                <tr>
+                                    <td>{{ contribution.author.username }}</td>
+                                    <td>{{ contribution.subject }}</td>
+                                    <td>{{ contribution.grade }}</td>
+                                    <td>
+                                        <button class="btn btn-link" type="button" data-bs-toggle="collapse" 
+                                                data-bs-target="#question{{ contribution.id }}">
+                                            Xem chi tiết
+                                        </button>
+                                        <div class="collapse" id="question{{ contribution.id }}">
+                                            <div class="card card-body">
+                                                <p><strong>Câu hỏi:</strong> {{ contribution.question }}</p>
+                                                <p><strong>A:</strong> {{ contribution.option_a }}</p>
+                                                <p><strong>B:</strong> {{ contribution.option_b }}</p>
+                                                <p><strong>C:</strong> {{ contribution.option_c }}</p>
+                                                <p><strong>D:</strong> {{ contribution.option_d }}</p>
+                                                <p><strong>Đáp án đúng:</strong> {{ contribution.correct_answer }}</p>
+                                                <p><strong>Giải thích:</strong> {{ contribution.explanation }}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{ contribution.correct_answer }}</td>
+                                    <td>{{ contribution.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                                    <td>
+                                        <form action="{{ url_for('approve_contribution', id=contribution.id) }}" method="POST" class="d-inline">
+                                            <button type="submit" class="btn btn-success btn-sm">
+                                                <i data-feather="check"></i> Phê duyệt
+                                            </button>
+                                        </form>
+                                        <form action="{{ url_for('reject_contribution', id=contribution.id) }}" method="POST" class="d-inline">
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <i data-feather="x"></i> Từ chối
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

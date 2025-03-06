@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center mb-4" data-aos="fade-down">Quản lý người dùng</h2>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow" data-aos="fade-up">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Tên người dùng</th>
+                                    <th>Email</th>
+                                    <th>Số xu</th>
+                                    <th>Xếp hạng</th>
+                                    <th>Số câu hỏi đóng góp</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                <tr>
+                                    <td>{{ user.username }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>
+                                        <span class="coins-display">🪙 {{ user.coins }}</span>
+                                    </td>
+                                    <td>{{ user.rank }}</td>
+                                    <td>{{ user.contributions|length }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary btn-sm" 
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#modifyCoins{{ user.id }}">
+                                            <i data-feather="edit-2"></i> Điều chỉnh xu
+                                        </button>
+                                    </td>
+                                </tr>
+                                <!-- Coin Modification Modal -->
+                                <div class="modal fade" id="modifyCoins{{ user.id }}" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Điều chỉnh xu cho {{ user.username }}</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <form action="{{ url_for('modify_user_coins', user_id=user.id) }}" method="POST">
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Điều chỉnh nhanh</label>
+                                                        <div class="btn-group w-100" role="group">
+                                                            <button type="button" class="btn btn-outline-danger" onclick="adjustCoins(this, -5)">-5</button>
+                                                            <button type="button" class="btn btn-outline-success" onclick="adjustCoins(this, 5)">+5</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="coinAmount" class="form-label">Số xu điều chỉnh</label>
+                                                        <input type="number" class="form-control" id="coinAmount" 
+                                                               name="coin_amount" required>
+                                                        <small class="text-muted">Nhập số dương để thêm xu, số âm để trừ xu</small>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="reason" class="form-label">Lý do</label>
+                                                        <textarea class="form-control" id="reason" name="reason" 
+                                                                  rows="3" required></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                    <button type="submit" class="btn btn-primary">Xác nhận</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function adjustCoins(button, amount) {
+    const modal = button.closest('.modal');
+    const input = modal.querySelector('input[name="coin_amount"]');
+    input.value = amount;
+}
+</script>
+{% endblock %}

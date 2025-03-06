@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card shadow" data-aos="fade-right">
+            <div class="card-body">
+                <h3 class="card-title">Profile</h3>
+                <div class="text-center mb-3">
+                    <img src="https://api.dicebear.com/6.x/avataaars/svg?seed={{ current_user.username }}" 
+                         alt="avatar" class="rounded-circle" width="100">
+                </div>
+                <div class="profile-info">
+                    <p><strong>Username:</strong> {{ current_user.username }}</p>
+                    <p><strong>Coins:</strong> 🪙 {{ current_user.coins }}</p>
+                    <p><strong>Rank:</strong> {{ current_user.rank }}</p>
+
+                    {% set found_next = false %}
+                    {% set next_rank = '' %}
+                    {% set next_threshold = 999999 %}
+                    {% for rank, threshold in RANK_THRESHOLDS.items() %}
+                        {% if not found_next and threshold > current_user.experience %}
+                            {% set found_next = true %}
+                            {% set next_rank = rank %}
+                            {% set next_threshold = threshold %}
+                        {% endif %}
+                    {% endfor %}
+
+                    <div class="rank-progress mt-3">
+                        <p class="mb-1">Experience Progress ({{ current_user.experience }}/{{ next_threshold }})</p>
+                        <div class="progress" style="height: 20px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" 
+                                 role="progressbar" 
+                                 style="width: {{ (current_user.experience / next_threshold * 100)|round }}%">
+                            </div>
+                        </div>
+                        {% if next_rank %}
+                        <small class="text-muted">Next Rank: {{ next_rank }}</small>
+                        {% else %}
+                        <small class="text-muted">Maximum Rank Achieved!</small>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card shadow" data-aos="fade-left">
+            <div class="card-body">
+                <h3 class="card-title">Leaderboard</h3>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>User</th>
+                                <th>Coins</th>
+                                <th>Experience</th>
+                                <th>Level</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in top_users %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ user.username }}</td>
+                                <td>🪙 {{ user.coins }}</td>
+                                <td>{{ user.experience }} XP</td>
+                                <td>{{ user.rank }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
